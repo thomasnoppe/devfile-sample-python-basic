@@ -1,12 +1,11 @@
-from flask import Flask
-from waitress import serve
+from flask import request
+from flask import jsonify
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
-@app.route('/')
-def hello():
-    ip_address = flask.request.remote_addr
+@app.route("/")
+def index():
+    ip_address = request.environ['REMOTE_ADDR']
     return "Requester IP: " + ip_address
 
-if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port=8080)
+app.run(host="0.0.0.0", port=8080)
